@@ -47,5 +47,21 @@ export interface EmailItem {
   previewUrl: string | null;
   error: string | null;
 }
+export interface CreateCampaignInput {
+  senderId: string;
+  subject: string;
+  body: string;
+  recipients: string[];
+  startAt: string;
+  delayMs: number;
+  hourlyLimit: number;
+}
 
+export interface CreateCampaignResult {
+  campaignId: string;
+  scheduled: number;
+  duplicatesRemoved: number;
+  firstSendAt: string;
+  lastSendAt: string;
+}
 export type EmailTab = "scheduled" | "sent";
