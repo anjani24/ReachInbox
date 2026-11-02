@@ -9,12 +9,16 @@ const envSchema = z.object({
   FRONTEND_URL: z.string().url(),
   DATABASE_URL: z.string().min(1),
   REDIS_URL: z.string().min(1),
+  WORKER_CONCURRENCY: z.coerce.number().int().positive().default(5),
+  MIN_SEND_DELAY_MS: z.coerce.number().int().nonnegative().default(2000),
+  MAX_EMAILS_PER_HOUR_PER_SENDER: z.coerce.number().int().positive().default(200),
+  STUCK_SENDING_TIMEOUT_MS: z.coerce.number().int().positive().default(120000),
 });
 
 const parsed = envSchema.safeParse(process.env);
 
 if (!parsed.success) {
-  console.error("❌ Invalid environment variables:", parsed.error.flatten().fieldErrors);
+  console.error("Invalid environment variables:", parsed.error.flatten().fieldErrors);
   process.exit(1);
 }
 
