@@ -11,7 +11,6 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "worker": "tsx watch src/worker.ts",
-    "seed": "tsx src/scripts/seed.ts",
     "start:worker": "node dist/src/worker.js"
   },
   "keywords": [],
@@ -25,7 +24,9 @@
     "dotenv": "^18.0.9",
     "drizzle-orm": "^0.45.4",
     "express": "^5.3.0",
+    "google-auth-library": "^11.3.2",
     "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
     "nodemailer": "^10.3.1",
     "pg": "^8.23.1",
     "zod": "^4.6.7"
@@ -34,6 +35,7 @@
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.6.6",
     "@types/nodemailer": "^8.0.2",
     "@types/pg": "^8.23.1",

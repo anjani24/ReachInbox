@@ -9,6 +9,7 @@ import { requireUser } from "./middleware/auth";
 import sendersRoutes from "./routes/senders.routes";
 import campaignsRoutes from "./routes/campaign.routes";
 import emailsRoutes from "./routes/emails.routes";
+import authRoutes from "./routes/auth.routes";
 
 export function createApp() {
   const app = express();
@@ -23,7 +24,12 @@ export function createApp() {
   app.use("/api/senders", requireUser, sendersRoutes);
   app.use("/api/campaigns", requireUser, campaignsRoutes);
   app.use("/api/emails", requireUser, emailsRoutes);
-
+  app.use("/api/health", healthRoutes);
+  app.use("/api/auth", authRoutes);
+  app.use("/admin/queues", requireUser, bullBoardRouter); // now login-protected
+  app.use("/api/senders", requireUser, sendersRoutes);
+  app.use("/api/campaigns", requireUser, campaignsRoutes);
+  app.use("/api/emails", requireUser, emailsRoutes);
   app.use(notFound);
   app.use(errorHandler);
 
