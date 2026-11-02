@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Fonts (loaded in layout.tsx) */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-mono), ui-monospace, monospace;
+
+  /* Brand green: Compose outline, active nav, login button, chips */
+  --color-brand: #3ba55c;
+  --color-brand-hover: #33914f;
+  --color-brand-soft: #eaf6ed;
+
+  /* Orange: scheduled-time pills */
+  --color-pending: #e8772e;
+  --color-pending-soft: #fff0e5;
+
+  /* Neutrals */
+  --color-ink: #1a1a1a;     /* main text */
+  --color-muted: #8c8c8c;   /* secondary text */
+  --color-line: #ededed;    /* borders, dividers */
+  --color-surface: #f6f6f6; /* search bar, inputs, user card */
+}
+
+body {
+  @apply bg-white text-ink font-sans antialiased;
+}
