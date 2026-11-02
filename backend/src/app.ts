@@ -10,6 +10,7 @@ import sendersRoutes from "./routes/senders.routes";
 import campaignsRoutes from "./routes/campaign.routes";
 import emailsRoutes from "./routes/emails.routes";
 import authRoutes from "./routes/auth.routes";
+import slackRoutes from "./routes/slack.routes";
 
 export function createApp() {
   const app = express();
@@ -20,7 +21,7 @@ export function createApp() {
 
   app.use("/api/health", healthRoutes);
   app.use("/admin/queues", bullBoardRouter);
-
+  app.use("/api/slack", slackRoutes);
   app.use("/api/senders", requireUser, sendersRoutes);
   app.use("/api/campaigns", requireUser, campaignsRoutes);
   app.use("/api/emails", requireUser, emailsRoutes);

@@ -4,6 +4,8 @@ export interface User {
   email: string;
   avatarUrl: string | null;
   slackConnected: boolean;
+  slackChannel: string | null;
+  slackAvailable: boolean;
 }
 
 export interface Sender {

@@ -14,7 +14,7 @@ import {
   upsertUser,
 } from "../services/auth.service";
 import { ensureDefaultSenders } from "../services/senders.service";
-
+import {isSlackConfigured} from "../services/slack.service";
 const router = Router();
 
 // 1. Start login: redirect to Google
@@ -47,13 +47,15 @@ router.get("/google/callback", asyncHandler(async (req, res) => {
 // 3. Who am I? (the frontend header uses this)
 router.get("/me", requireUser, (req, res) => {
   const user = currentUser(req);
-  res.json({
+    res.json({
     user: {
       id: user.id,
       name: user.name,
       email: user.email,
       avatarUrl: user.avatarUrl,
       slackConnected: Boolean(user.slackWebhookUrl),
+      slackChannel: user.slackChannel,
+      slackAvailable: isSlackConfigured(),
     },
   });
 });

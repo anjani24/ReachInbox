@@ -2,7 +2,8 @@ import dotenv from "dotenv";
 import { z } from "zod";
 
 dotenv.config();
-
+const optional = <T extends z.ZodTypeAny>(schema: T) =>
+  z.preprocess((v) => (v === "" ? undefined : v), schema.optional());
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   PORT: z.coerce.number().default(4000),
@@ -17,6 +18,9 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string().min(1),
   GOOGLE_CALLBACK_URL: z.string().url(),
   JWT_SECRET: z.string().min(32, "JWT_SECRET must be at least 32 characters"),
+    SLACK_CLIENT_ID: optional(z.string()),
+  SLACK_CLIENT_SECRET: optional(z.string()),
+  SLACK_REDIRECT_URI: optional(z.string().url()),
 });
 
 const parsed = envSchema.safeParse(process.env);
