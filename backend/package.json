@@ -9,7 +9,10 @@
     "start": "node dist/src/server.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "worker": "tsx watch src/worker.ts",
+    "seed": "tsx src/scripts/seed.ts",
+    "start:worker": "node dist/src/worker.js"
   },
   "keywords": [],
   "type": "commonjs",

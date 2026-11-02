@@ -5,7 +5,10 @@ import { env } from "./config/env";
 import healthRoutes from "./routes/health.routes";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 import { bullBoardRouter } from "./queue/bullBoard";
-import devRoutes from "./routes/dev.routes";
+import { requireUser } from "./middleware/auth";
+import sendersRoutes from "./routes/senders.routes";
+import campaignsRoutes from "./routes/campaign.routes";
+import emailsRoutes from "./routes/emails.routes";
 
 export function createApp() {
   const app = express();
@@ -17,9 +20,9 @@ export function createApp() {
   app.use("/api/health", healthRoutes);
   app.use("/admin/queues", bullBoardRouter);
 
-  if (env.NODE_ENV !== "production") {
-    app.use("/api/dev", devRoutes);
-  }
+  app.use("/api/senders", requireUser, sendersRoutes);
+  app.use("/api/campaigns", requireUser, campaignsRoutes);
+  app.use("/api/emails", requireUser, emailsRoutes);
 
   app.use(notFound);
   app.use(errorHandler);

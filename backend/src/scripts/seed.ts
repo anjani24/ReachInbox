@@ -13,7 +13,7 @@ async function main() {
       .insert(users)
       .values({ googleId: DEV_GOOGLE_ID, email: "dev@example.com", name: "Dev User" })
       .returning();
-    console.log("👤 Created dev user");
+    console.log("Created dev user");
   }
 
   const existing = await db.query.senders.findMany({ where: eq(senders.userId, user.id) });
@@ -29,7 +29,7 @@ async function main() {
       smtpUser: account.user,
       smtpPass: account.pass,
     });
-    console.log(`📮 Created Ethereal sender "${name}" (${account.user})`);
+    console.log(`Created Ethereal sender "${name}" (${account.user})`);
   }
 
   const all = await db.query.senders.findMany({ where: eq(senders.userId, user.id) });
