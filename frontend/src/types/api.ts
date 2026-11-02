@@ -36,3 +36,16 @@ export interface EmailCounts {
   scheduled: number;
   sent: number;
 }
+export interface EmailItem {
+  id: string;
+  toEmail: string;
+  subject: string;
+  preview: string;
+  status: EmailStatus;
+  scheduledAt: string;
+  sentAt: string | null;
+  previewUrl: string | null;
+  error: string | null;
+}
+
+export type EmailTab = "scheduled" | "sent";

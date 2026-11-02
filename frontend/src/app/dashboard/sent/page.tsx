@@ -1,3 +1,5 @@
+import { EmailListView } from "@/components/emails/EmailListView";
+
 export default function SentPage() {
-  return <div className="p-6 text-sm text-muted">Sent emails will appear here.</div>;
+  return <EmailListView tab="sent" />;
 }
