@@ -1,5 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
-
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || ""; // empty = same origin (via proxy)
 export class ApiError extends Error {
   constructor(public status: number, message: string, public details?: unknown) {
     super(message);

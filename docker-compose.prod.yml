@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: always
+    env_file: .env.prod
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    restart: always
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    volumes:
+      - redis_data:/data
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  api:
+    build: ./backend
+    image: reachinbox-backend:latest
+    restart: always
+    env_file: .env.prod
+    depends_on: [postgres, redis, elasticsearch]
+
+  worker:
+    image: reachinbox-backend:latest
+    restart: always
+    command: ["node", "dist/src/worker.js"]
+    env_file: .env.prod
+    depends_on: [api]
+
+  caddy:
+    image: caddy:2
+    restart: always
+    env_file: .env.prod
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [api]
+
+volumes:
+  pg_data:
+  redis_data:
+  es_data:
+  caddy_data:
+  caddy_config:

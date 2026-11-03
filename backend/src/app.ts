@@ -14,7 +14,7 @@ import slackRoutes from "./routes/slack.routes";
 
 export function createApp() {
   const app = express();
-
+  app.set("trust proxy", 1); // behind Caddy and Vercel
   app.use(cors({ origin: env.FRONTEND_URL, credentials: true }));
   app.use(express.json({ limit: "5mb" }));
   app.use(cookieParser());
